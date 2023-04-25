@@ -2,6 +2,7 @@ package org.husk.foodtracer;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.renderscript.ScriptGroup;
@@ -27,33 +28,35 @@ public class MainActivity extends AppCompatActivity
         // Getting reference for all instances declared above
         bottomNavigationView = findViewById(R.id.bottom_nav_view);
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.mainFragment, allListFragment)
-                .commit();
+        loadFragment(allListFragment);
 
         bottomNavigationView.setOnItemSelectedListener(this);
     }
 
+    // Define action based on selection in the bottom nav bar
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         if (item.getItemId() == R.id.allList) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.mainFragment, allListFragment)
-                    .commit();
+            loadFragment(allListFragment);
             return true;
         }
 
         if (item.getItemId() == R.id.expiredList) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.mainFragment, expiredListFragment)
-                    .commit();
+            loadFragment(expiredListFragment);
             return true;
         }
 
         return false;
     }
+
+    // Function to load a fragment
+    private void loadFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_content, fragment)
+                .commit();
+    }
 }
+
+
