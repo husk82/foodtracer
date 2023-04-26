@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -14,6 +13,7 @@ import com.google.android.material.navigation.NavigationBarView;
 public class MainActivity extends AppCompatActivity
         implements NavigationBarView.OnItemSelectedListener{
 
+    // Bottom Nav Bar
     private BottomNavigationView bottomNavigationView;
 
     // Instantiating all fragments
@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity
         // Getting reference for all instances declared above
         bottomNavigationView = findViewById(R.id.bottom_nav_view);
 
+        // Setting up bottom navigation on select listener
         loadFragment(allListFragment);
-
         bottomNavigationView.setOnItemSelectedListener(this);
     }
 
