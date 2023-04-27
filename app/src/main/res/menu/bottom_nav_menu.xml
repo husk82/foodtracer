@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/allList"
+        android:id="@+id/all_list"
         android:title="All List"
-        android:icon="@drawable/baseline_list_24"/>
+        android:icon="@drawable/ic_all_list"/>
     <item
-        android:id="@+id/expiredList"
+        android:id="@+id/add_new_item"
+        android:title="Add"
+        android:icon="@drawable/ic_add"/>
+    <item
+        android:id="@+id/expired_list"
         android:title="Expired List"
-        android:icon="@drawable/baseline_playlist_remove_24"/>
+        android:icon="@drawable/ic_expired_list"/>
 </menu>

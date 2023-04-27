@@ -1,9 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.FoodTracer" parent="Theme.Material3.Light">
+    <style name="Base.Theme.FoodTracer" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
     <style name="Theme.FoodTracer" parent="Base.Theme.FoodTracer" />
+
+    <style name="MyBottomNavigationViewStyle" parent="Widget.Design.BottomNavigationView">
+        <item name="android:background">@color/bot_nav_bar1</item>
+        <item name="itemIconTint">@color/bot_nav_bar2</item>
+        <item name="itemTextColor">@color/bot_nav_bar3</item>
+    </style>
 </resources>

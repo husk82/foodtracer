@@ -3,5 +3,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="teal">#00EFDB</color>
-    <color name="yellow">#FDD400</color>
+    <color name="palette_yellow">#fcbf49</color>
+    <color name="palette_red">#d62828</color>
+    <color name="palette_white">#edf2f4</color>
+    <color name="bot_nav_bar1">#fca311</color>
+    <color name="bot_nav_bar2">#14213d</color>
+    <color name="bot_nav_bar3">#000000</color>
 </resources>

@@ -4,11 +4,13 @@ import java.util.Date;
 
 public class FoodItem {
     private String name;
-    private String expirayDate;
+    private String expiryDate;
+    private int quantity;
 
-    public FoodItem(String name, String expirayDate) {
+    public FoodItem(String name, String expiryDate, int quantity) {
         this.name = name;
-        this.expirayDate = expirayDate;
+        this.expiryDate = expiryDate;
+        this.quantity = quantity;
     }
 
     public String getName() {
@@ -19,19 +21,29 @@ public class FoodItem {
         this.name = name;
     }
 
-    public String getExpirayDate() {
-        return expirayDate;
+    public String getExpiryDate() {
+        return expiryDate;
     }
 
-    public void setExpirayDate(String expirayDate) {
-        this.expirayDate = expirayDate;
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     @Override
     public String toString() {
         return "FoodItem{" +
                 "name='" + name + '\'' +
-                ", expirayDate=" + expirayDate +
+                ", expiryDate='" + expiryDate + '\'' +
+                ", numberOfItems=" + quantity +
                 '}';
     }
+
 }
