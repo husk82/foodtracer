@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -25,6 +27,9 @@ public class MainActivity extends AppCompatActivity
     AllListFragment allListFragment = new AllListFragment();
     ExpiredListFragment expiredListFragment = new ExpiredListFragment();
 
+    // Instantiating databse
+    DatabaseHandler databaseHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +41,9 @@ public class MainActivity extends AppCompatActivity
         // Setting up bottom navigation on select listener
         loadFragment(allListFragment);
         bottomNavigationView.setOnItemSelectedListener(this);
+
+        // Initializing database
+        databaseHandler = new DatabaseHandler(this);
     }
 
     // Define action based on selection in the bottom nav bar
@@ -81,6 +89,7 @@ public class MainActivity extends AppCompatActivity
         // Set up the UI elements
         final EditText itemNameEditText = dialogView.findViewById(R.id.item_name_edittext);
         final EditText itemDateEditText = dialogView.findViewById(R.id.item_date_edittext);
+        final EditText itemQuantityEditText = dialogView.findViewById(R.id.item_quantity_edittext);
         Button addItemButton = dialogView.findViewById(R.id.add_item_button);
 
         // Set up the button click listener
@@ -89,11 +98,20 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 // Get the input data
                 String itemName = itemNameEditText.getText().toString();
-                String itemDescription = itemDateEditText.getText().toString();
+                String itemDate= itemDateEditText.getText().toString();
+                int quantity = Integer.parseInt(itemQuantityEditText.getText().toString());
 
-                // Do something with the input data
-                // -------------------------------
-                //---------------------------------
+                Log.d("msg", itemName + " " + itemDate + " " + quantity);
+
+                // Validating all input field is filled
+                if (itemName.isEmpty() && itemDate.isEmpty() && quantity==0) {
+                    Toast.makeText(MainActivity.this, "Please enter all the data..", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                databaseHandler.addNewFoodItem(itemName, itemDate, quantity);
+
+                Toast.makeText(MainActivity.this, "New item has been added.", Toast.LENGTH_SHORT).show();
 
                 // Dismiss the dialog
                 dialog.dismiss();

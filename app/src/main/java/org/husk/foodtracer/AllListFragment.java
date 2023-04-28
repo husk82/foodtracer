@@ -14,7 +14,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass.-
  * create an instance of this fragment.
  */
 public class AllListFragment extends Fragment {
