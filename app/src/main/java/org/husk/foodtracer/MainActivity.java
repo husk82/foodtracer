@@ -113,6 +113,9 @@ public class MainActivity extends AppCompatActivity
 
                 Toast.makeText(MainActivity.this, "New item has been added.", Toast.LENGTH_SHORT).show();
 
+                // Refreshing page to show new added item
+                recreate();
+
                 // Dismiss the dialog
                 dialog.dismiss();
             }
@@ -122,5 +125,7 @@ public class MainActivity extends AppCompatActivity
         dialog.show();
     }
 }
+
+
 
 

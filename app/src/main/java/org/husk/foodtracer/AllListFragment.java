@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.-
@@ -21,18 +22,14 @@ public class AllListFragment extends Fragment {
 
     // Recycler View
     private RecyclerView allListRecView;
-    FoodItemRecViewAdapter adapter;
+    private FoodItemRecViewAdapter adapter;
+    private DatabaseHandler databaseHandler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Test data
-        ArrayList<FoodItem> foodItems = new ArrayList<>();
-        foodItems.add(new FoodItem("Banana", "22/02/2020", 5));
-        foodItems.add(new FoodItem("Apple", "22/02/2020", 5));
-        foodItems.add(new FoodItem("Carrot", "22/02/2020", 10));
-
+        databaseHandler = new DatabaseHandler(requireActivity());
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_all_list, container, false);
@@ -41,7 +38,8 @@ public class AllListFragment extends Fragment {
         allListRecView = rootView.findViewById(R.id.all_list_rec_view);
 
         adapter = new FoodItemRecViewAdapter(getContext());
-        adapter.setFoodItems(foodItems);
+        // Retrieving data from database and setting it on recyclerview
+        adapter.setFoodItems(databaseHandler.readFoodItems());
 
         allListRecView.setAdapter(adapter);
         allListRecView.setLayoutManager(new LinearLayoutManager(getActivity()));

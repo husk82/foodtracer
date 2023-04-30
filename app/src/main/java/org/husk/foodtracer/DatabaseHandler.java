@@ -1,13 +1,17 @@
 package org.husk.foodtracer;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -58,7 +62,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // Method to add new course to our sqlite database
+    // Method to add new food item to our sqlite database
     public void addNewFoodItem(String foodName, String date, int quantity) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -70,6 +74,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(tableName, null, values);
 
         db.close();
+    }
+
+    // Method to reading the food items from database
+    public ArrayList<FoodItem> readFoodItems() {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursorFoodItems = db.rawQuery("SELECT * FROM " + tableName, null);
+
+        ArrayList<FoodItem> foodItemArrayList = new ArrayList<>();
+
+        if (cursorFoodItems.moveToFirst()) {
+            do {
+                @SuppressLint("Range") String name = cursorFoodItems.getString(
+                        cursorFoodItems.getColumnIndex("food_name"));
+                @SuppressLint("Range") String date = cursorFoodItems.getString(
+                        cursorFoodItems.getColumnIndex("date"));
+                @SuppressLint("Range") int quantity = cursorFoodItems.getInt(
+                        cursorFoodItems.getColumnIndex("quantity"));
+
+                foodItemArrayList.add(new FoodItem(name, date, quantity));
+
+            } while (cursorFoodItems.moveToNext());
+        }
+        cursorFoodItems.close();
+
+        return foodItemArrayList;
     }
 
 }
