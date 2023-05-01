@@ -87,6 +87,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (cursorFoodItems.moveToFirst()) {
             do {
+                @SuppressLint("Range") int id = cursorFoodItems.getInt(
+                        cursorFoodItems.getColumnIndex("id"));
                 @SuppressLint("Range") String name = cursorFoodItems.getString(
                         cursorFoodItems.getColumnIndex("food_name"));
                 @SuppressLint("Range") String date = cursorFoodItems.getString(
@@ -94,13 +96,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 @SuppressLint("Range") int quantity = cursorFoodItems.getInt(
                         cursorFoodItems.getColumnIndex("quantity"));
 
-                foodItemArrayList.add(new FoodItem(name, date, quantity));
+                foodItemArrayList.add(new FoodItem(id, name, date, quantity));
 
             } while (cursorFoodItems.moveToNext());
         }
         cursorFoodItems.close();
 
         return foodItemArrayList;
+    }
+
+    // Method to update food item in the databse
+    public void updateCourse(String foodName, String date, int quantity) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(nameCol, foodName);
+        values.put(dateCol, date);
+        values.put(quantityCol, quantity);
+
+        // TODO update values in database
+
+    }
+
+    // Method to delete food item in the database
+    public void deleteCourse(int id) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(tableName, "id=?", new String[]{String.valueOf((id))});
+        db.close();
     }
 
 }

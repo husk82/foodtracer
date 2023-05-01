@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity
     AllListFragment allListFragment = new AllListFragment();
     ExpiredListFragment expiredListFragment = new ExpiredListFragment();
 
-    // Instantiating databse
+    // Instantiating database
     DatabaseHandler databaseHandler;
 
     @Override

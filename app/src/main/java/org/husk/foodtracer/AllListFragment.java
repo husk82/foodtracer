@@ -37,7 +37,7 @@ public class AllListFragment extends Fragment {
         // Setting up Recycle View
         allListRecView = rootView.findViewById(R.id.all_list_rec_view);
 
-        adapter = new FoodItemRecViewAdapter(getContext());
+        adapter = new FoodItemRecViewAdapter(getContext(), databaseHandler);
         // Retrieving data from database and setting it on recyclerview
         adapter.setFoodItems(databaseHandler.readFoodItems());
 

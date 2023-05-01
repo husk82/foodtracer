@@ -3,11 +3,14 @@ package org.husk.foodtracer;
 import java.util.Date;
 
 public class FoodItem {
+
+    private int id;
     private String name;
     private String expiryDate;
     private int quantity;
 
-    public FoodItem(String name, String expiryDate, int quantity) {
+    public FoodItem(int id, String name, String expiryDate, int quantity) {
+        this.id = id;
         this.name = name;
         this.expiryDate = expiryDate;
         this.quantity = quantity;
@@ -35,6 +38,14 @@ public class FoodItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
