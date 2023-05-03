@@ -99,17 +99,17 @@ public class MainActivity extends AppCompatActivity
                 // Get the input data
                 String itemName = itemNameEditText.getText().toString();
                 String itemDate= itemDateEditText.getText().toString();
-                int quantity = Integer.parseInt(itemQuantityEditText.getText().toString());
+                String quantity = itemQuantityEditText.getText().toString();
 
-                Log.d("msg", itemName + " " + itemDate + " " + quantity);
+                Log.d("VALIDATION", String.valueOf(itemName.isEmpty()));
 
                 // Validating all input field is filled
-                if (itemName.isEmpty() && itemDate.isEmpty() && quantity==0) {
+                if (itemName.isEmpty() || itemDate.isEmpty() || quantity.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Please enter all the data..", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                databaseHandler.addNewFoodItem(itemName, itemDate, quantity);
+                databaseHandler.addNewFoodItem(itemName, itemDate, Integer.parseInt(quantity));
 
                 Toast.makeText(MainActivity.this, "New item has been added.", Toast.LENGTH_SHORT).show();
 
