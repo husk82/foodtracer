@@ -7,9 +7,35 @@
     tools:context=".AllListFragment"
     android:padding="10dp">
 
+    <TableLayout
+        android:id="@+id/heading_column"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Column headings -->
+        <TableRow>
+            <TextView
+                android:text="Name"
+                android:textStyle="bold"
+                android:padding="8dp"/>
+            <TextView
+                android:text="Expiry Date"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:padding="8dp"/>
+            <TextView
+                android:text="Quantity"
+                android:textStyle="bold"
+                android:padding="8dp"/>
+        </TableRow>
+
+    </TableLayout>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/all_list_rec_view"/>
+        android:id="@+id/all_list_rec_view"
+        android:layout_below="@+id/heading_column"/>
 
 </RelativeLayout>

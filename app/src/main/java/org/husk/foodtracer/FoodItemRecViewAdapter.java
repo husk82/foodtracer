@@ -48,6 +48,7 @@ public class FoodItemRecViewAdapter extends RecyclerView.Adapter<FoodItemRecView
                 databaseHandler.deleteCourse(foodItems.get(position).getId());
                 foodItems = databaseHandler.readFoodItems();
                 notifyDataSetChanged();
+                Toast.makeText(context, "A item has been deleted.", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -5,30 +5,40 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationBarView.OnItemSelectedListener{
+        implements NavigationBarView.OnItemSelectedListener {
 
     // Bottom Nav Bar
     private BottomNavigationView bottomNavigationView;
 
     // Instantiating all fragments
-    AllListFragment allListFragment = new AllListFragment();
-    ExpiredListFragment expiredListFragment = new ExpiredListFragment();
+    private AllListFragment allListFragment = new AllListFragment();
+    private ExpiredListFragment expiredListFragment = new ExpiredListFragment();
 
     // Instantiating database
-    DatabaseHandler databaseHandler;
+    private DatabaseHandler databaseHandler;
+
+    // Instantiating Calender and dateppicker
+    private Calendar calendar;
+    private DatePickerDialog datePickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +54,9 @@ public class MainActivity extends AppCompatActivity
 
         // Initializing database
         databaseHandler = new DatabaseHandler(this);
+
+        // Initializing calender
+        calendar = Calendar.getInstance();
     }
 
     // Define action based on selection in the bottom nav bar
@@ -68,6 +81,8 @@ public class MainActivity extends AppCompatActivity
         return false;
     }
 
+
+    // PRIVATE FUNCTIONS
     // Function to load a fragment
     private void loadFragment(Fragment fragment) {
         getSupportFragmentManager()
@@ -76,7 +91,7 @@ public class MainActivity extends AppCompatActivity
                 .commit();
     }
 
-    // Method to show dialog box for adding new item
+    // Funtion to show dialog box for adding new item
     private void showAddItemDialog() {
         // Inflate the dialog layout
         View dialogView = LayoutInflater.from(this).inflate(R.layout.add_item_dialog, null);
@@ -88,7 +103,7 @@ public class MainActivity extends AppCompatActivity
 
         // Set up the UI elements
         final EditText itemNameEditText = dialogView.findViewById(R.id.item_name_edittext);
-        final EditText itemDateEditText = dialogView.findViewById(R.id.item_date_edittext);
+        final Button expiry_date_picker = dialogView.findViewById(R.id.expiry_date_picker);
         final EditText itemQuantityEditText = dialogView.findViewById(R.id.item_quantity_edittext);
         Button addItemButton = dialogView.findViewById(R.id.add_item_button);
 
@@ -98,10 +113,8 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 // Get the input data
                 String itemName = itemNameEditText.getText().toString();
-                String itemDate= itemDateEditText.getText().toString();
+                String itemDate = expiry_date_picker.getText().toString();
                 String quantity = itemQuantityEditText.getText().toString();
-
-                Log.d("VALIDATION", String.valueOf(itemName.isEmpty()));
 
                 // Validating all input field is filled
                 if (itemName.isEmpty() || itemDate.isEmpty() || quantity.isEmpty()) {
@@ -118,6 +131,27 @@ public class MainActivity extends AppCompatActivity
 
                 // Dismiss the dialog
                 dialog.dismiss();
+            }
+        });
+
+        expiry_date_picker.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                datePickerDialog = new DatePickerDialog(MainActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                // Set the selected date on the button
+                                calendar.set(year, monthOfYear, dayOfMonth);
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",
+                                        Locale.getDefault());
+                                expiry_date_picker.setText(dateFormat.format(calendar.getTime()));
+                            }
+                        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH));
+
+                        datePickerDialog.show();
             }
         });
 
