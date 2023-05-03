@@ -45,19 +45,6 @@
             tools:ignore="NotSibling" />
 
         <Button
-            android:id="@+id/edit_button"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@+id/delete_button"
-            android:background="@drawable/edit_button"
-            android:text="@string/edit_button_sign"
-            android:textColor="#00296A"
-            android:textSize="15sp"
-            android:minHeight="48dp"
-            tools:ignore="SmallSp" />
-
-        <Button
             android:id="@+id/delete_button"
             android:layout_width="25dp"
             android:layout_height="25dp"

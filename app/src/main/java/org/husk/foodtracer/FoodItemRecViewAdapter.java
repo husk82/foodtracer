@@ -46,6 +46,7 @@ public class FoodItemRecViewAdapter extends RecyclerView.Adapter<FoodItemRecView
             @Override
             public void onClick(View v) {
                 databaseHandler.deleteCourse(foodItems.get(position).getId());
+                foodItems = databaseHandler.readFoodItems();
                 notifyDataSetChanged();
             }
         });
